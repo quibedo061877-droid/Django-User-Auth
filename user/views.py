@@ -14,13 +14,17 @@ def register_view(request):
         username = request.POST['username']
         password = request.POST['password']
         confirm_password = request.POST['confirm_password']
+        last_name = request.POST['last_name']
+        first_name = request.POST['first_name']
+        email = request.POST['email']
 
         if password == confirm_password:
             try:
-                user = User.objects.create_user(username=username, password=password)
+                user = User.objects.create_user(username=username, password=password, email=email, first_name=first_name, last_name=last_name)
                 user.save()
-                # return HttpResponse("Registration successful!")
-                return redirect('login')
+                return HttpResponse("Registration successful!")
+                # messages.success(request, "Registration successful!")
+                # return redirect('login')
             except:
                 messages.error(request, "Username already exists.")
         else:
