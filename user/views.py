@@ -22,11 +22,26 @@ def register_view(request):
             try:
                 user = User.objects.create_user(username=username, password=password, email=email, first_name=first_name, last_name=last_name)
                 user.save()
-                return HttpResponse("Registration successful!")
-                # messages.success(request, "Registration successful!")
-                # return redirect('login')
+                messages.success(request, "Registration successful!")
+                return redirect('login')
             except:
                 messages.error(request, "Username already exists.")
         else:
             messages.error(request, "Passwords do not match.")
     return render(request, 'registration/register.html')
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.error(request, "Invalid username or password.")
+    return render(request, 'registration/login.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
