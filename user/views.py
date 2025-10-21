@@ -7,7 +7,7 @@ from django.contrib import messages
 
 # Create your views here.
 def home(request):
-    return HttpResponse("Welcome to the Home Page!")
+     return render(request, 'home.html')
 
 def register_view(request):
     if request.method == 'POST':
