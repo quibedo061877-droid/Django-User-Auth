@@ -4,3 +4,9 @@ from django.http import HttpResponse
 # Create your views here.
 def home(request):
     return HttpResponse("Welcome to the Home Page!")
+
+def register_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        confirm_password = request.POST['confirm_password']
