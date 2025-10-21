@@ -25,4 +25,4 @@ def register_view(request):
                 messages.error(request, "Username already exists.")
         else:
             messages.error(request, "Passwords do not match.")
-    return render(request, 'register.html')
+    return render(request, 'registration/register.html')
